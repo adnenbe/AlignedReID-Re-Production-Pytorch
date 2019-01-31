@@ -1,7 +1,10 @@
 from __future__ import print_function
 import os
 import os.path as osp
-import cPickle as pickle
+try:
+    import cPickle as pickle
+except:
+    import pickle
 from scipy import io
 import datetime
 import time
@@ -287,9 +290,9 @@ def load_state_dict(model, src_state_dict):
       # backwards compatibility for serialized parameters
       param = param.data
     try:
-      dest_state_dict[name].copy_(param)
-    except Exception, msg:
-      print("Warning: Error occurs when copying '{}': {}"
+        dest_state_dict[name].copy_(param)
+    except Exception as msg:
+        print("Warning: Error occurs when copying '{}': {}"
             .format(name, str(msg)))
 
   src_missing = set(dest_state_dict.keys()) - set(src_state_dict.keys())
