@@ -86,7 +86,8 @@ def transform(zip_file, train_test_partition_file, save_dir=None):
     raise RuntimeError('Train/test partition file should be provided.')
 
   for im_type in ['detected', 'labeled']:
-    trainval_im_names = train_test_partition[im_type]['train_im_names']
+    trainval_im_names_bytes = train_test_partition[im_type]['train_im_names']
+    trainval_im_names = trainval_im_names_bytes.astype('U26')
     trainval_ids = list(set([parse_im_name(n, 'id')
                              for n in trainval_im_names]))
     # Sort ids, so that id-to-label mapping remains the same when running
